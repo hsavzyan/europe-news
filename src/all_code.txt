@@ -1,0 +1,428 @@
+import "./Header.css";
+
+const Header = () => {
+  return (
+    <header className="header">
+      <div className="header-content">
+        <h1 className="header-title">GuardianEuropa</h1>
+        <p className="header-tagline">Your trusted source for European news</p>
+      </div>
+    </header>
+  );
+};
+
+export default Header;
+.news-card {
+  padding: 0.7rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 0.9rem; /* Set a margin around each card to create the 'lines' */
+  /* background-color: white; */
+  position: relative;
+  /* border-right: 1px solid black; */
+  margin-left: 1rem;
+  margin-right: -2rem;
+  transition: background 0.3s ease;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.news-card:hover {
+  background: linear-gradient(to right, #fcebbe, #f8edd1);
+  color: #333;
+}
+
+.news-card::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: calc(
+    100% - 2px
+  ); /* Adjust this value to change the length of the line */
+  width: 1px;
+  background: black;
+  bottom: 0;
+}
+
+.news-card::before {
+  content: "";
+  position: absolute;
+  left: 15px;
+  bottom: 0;
+  width: calc(
+    100% - 30px
+  ); /* Adjust this value to change the length of the line */
+  height: 1px;
+  background: black;
+}
+
+.news-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.news-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 1rem 0;
+  color: #333;
+}
+
+.news-text {
+  color: #666;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+.time-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  color: #888;
+  padding: 0 1rem 1rem;
+}
+
+.time-icon {
+  margin-right: 0.25rem;
+}
+
+@media (min-width: 1024px) {
+  /* 4 cards per row */
+  .news-card:nth-child(4n) {
+    border-right: none;
+  }
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+  /* 3 cards per row */
+  .news-card:nth-child(3n) {
+    border-right: none;
+  }
+}
+@media (min-width: 640px) and (max-width: 767px) {
+  /* 2 cards per row */
+  .news-card:nth-child(2n) {
+    border-right: none;
+  }
+}
+@media (max-width: 639px) {
+  /* 1 card per row */
+  .news-card {
+    border-right: none;
+  }
+}
+.container {
+  max-width: 100%;
+  padding-left: 0rem;
+  padding-right: 0rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.grid-cols-news {
+  grid-template-columns: auto 1fr;
+}
+
+.day-news {
+  display: flex;
+  margin-bottom: 2rem;
+}
+
+.date-container {
+  min-width: 220px;
+  padding: 1rem;
+}
+
+.date-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #333;
+}
+
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+  margin: 2rem 2rem;
+  background: linear-gradient(to right, black 50%, transparent 50%),
+    linear-gradient(to bottom, black 50%, transparent 50%);
+  background-size: 2px 97%, 100% 2px;
+  background-repeat: no-repeat;
+  position: relative;
+  padding-right: 1rem;
+}
+
+.page-controls {
+  display: flex;
+  justify-content: center;
+  padding: 1rem 0;
+}
+
+.page-controls button {
+  background: none;
+  border: none;
+  margin: 0 0.5rem;
+  font-size: 1rem;
+  color: #888;
+}
+
+.page-controls button.font-bold {
+  font-weight: bold;
+  color: #333;
+}
+
+.page-controls button:hover {
+  color: #333;
+}
+
+.page-controls button:disabled {
+  color: #ccc;
+}
+
+.page-controls button:focus {
+  outline: none;
+}
+
+@media (min-width: 640px) {
+  .news-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 768px) {
+  .news-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .news-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Inter", sans-serif;
+  background-color: #f3f3f3;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+button {
+  cursor: pointer;
+  font-family: "Inter", sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+import { MdSchedule } from "react-icons/md";
+import "./NewsCard.css";
+
+export default function NewsCard({ newsItem }) {
+  const time = new Date(newsItem.webPublicationDate).toLocaleTimeString(
+    "en-US",
+    {
+      hour: "2-digit",
+      minute: "2-digit",
+    }
+  );
+
+  return (
+    <div className="news-card">
+      <div>
+        <img
+          src={newsItem.fields.thumbnail}
+          alt={newsItem.webTitle}
+          className="news-image"
+        />
+        <h2 className="news-title">
+          <a href={newsItem.webUrl} target="_blank" rel="noopener noreferrer">
+            {newsItem.webTitle}
+          </a>
+        </h2>
+        <p className="news-text">{newsItem.fields.trailText}</p>
+      </div>
+      <div className="time-container">
+        <MdSchedule size={20} className="time-icon" />
+        <p>{time}</p>
+      </div>
+    </div>
+  );
+}
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App.jsx";
+import "./index.css";
+
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
+import { useEffect, useState } from "react";
+import axios from "axios";
+import NewsCard from "./NewsCard";
+import { FiChevronRight, FiChevronLeft } from "react-icons/fi";
+import "./App.css";
+import Header from "./Header";
+
+const TOTAL_PAGES = 10; // define your total pages
+const API_KEY = import.meta.env.VITE_GUARDIAN_API_KEY;
+const API_ENDPOINT = "https://content.guardianapis.com/world/europe-news";
+
+function App() {
+  const [newsData, setNewsData] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [error, setError] = useState(null);
+
+  // Function to format the date
+  const formatDate = (date) => {
+    return date.toISOString().split("T")[0];
+  };
+
+  useEffect(() => {
+    const fetchNews = async () => {
+      try {
+        const res = await axios.get(
+          `${API_ENDPOINT}?api-key=${API_KEY}&show-fields=all&page=${currentPage}&page-size=10`
+        );
+
+        const newsByDate = {};
+        for (const newsItem of res.data.response.results) {
+          const date = formatDate(new Date(newsItem.webPublicationDate));
+          if (!newsByDate[date]) {
+            newsByDate[date] = [];
+          }
+          newsByDate[date].push(newsItem);
+        }
+
+        setNewsData(newsByDate);
+        window.scrollTo(0, 0); // scroll to top here
+      } catch (error) {
+        setError(error.message);
+      }
+    };
+
+    fetchNews();
+  }, [currentPage]);
+
+  const goToPage = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  const generatePageNumbers = () => {
+    let pages = [];
+    for (let i = 0; i < TOTAL_PAGES; i++) {
+      pages.push(
+        <button
+          key={i}
+          onClick={() => goToPage(i + 1)}
+          className={i + 1 === currentPage ? "font-bold" : ""}
+        >
+          {i + 1}
+        </button>
+      );
+    }
+    return pages;
+  };
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+  return (
+    <div className="container">
+      <Header />
+      {Object.entries(newsData).map(([date, newsItems]) => (
+        <div key={date} className="day-news grid grid-cols-news">
+          <div className="date-container">
+            <p className="date-title">
+              {new Date(date).toLocaleDateString("en-US", {
+                weekday: "long",
+                day: "2-digit",
+                month: "long",
+                year: "numeric",
+              })}
+            </p>
+          </div>
+          <div className="news-grid">
+            {newsItems.map((newsItem) => (
+              <NewsCard key={newsItem.id} newsItem={newsItem} />
+            ))}
+          </div>
+        </div>
+      ))}
+      <div className="page-controls">
+        <button
+          onClick={() => goToPage(currentPage - 1)}
+          disabled={currentPage === 1}
+        >
+          <FiChevronLeft />
+        </button>
+        {generatePageNumbers()}
+        {currentPage < TOTAL_PAGES && <p>...</p>}
+        <button
+          onClick={() => goToPage(currentPage + 1)}
+          disabled={currentPage === TOTAL_PAGES}
+        >
+          <FiChevronRight />
+        </button>
+      </div>
+    </div>
+  );
+}
+
+export default App;
+/* Header10.css */
+.header {
+  width: 100%;
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #b71c1c;
+  color: #ffc107;
+  margin: 0;
+  padding: 0;
+}
+
+.header-content {
+  text-align: center;
+}
+
+.header-title {
+  font-size: 3rem;
+  text-transform: uppercase;
+  margin: 0;
+  text-shadow: 2px 2px 2px #000;
+}
+
+.header-tagline {
+  font-size: 1.5rem;
+  margin-top: 1rem;
+}
