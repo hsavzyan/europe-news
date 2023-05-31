@@ -1,7 +1,7 @@
 import { MdSchedule } from "react-icons/md";
 import "./NewsCard.css";
 
-export default function NewsCard({ newsItem }) {
+export default function NewsCard({ newsItem, onClick }) {
   const time = new Date(newsItem.webPublicationDate).toLocaleTimeString(
     "en-US",
     {
@@ -11,17 +11,15 @@ export default function NewsCard({ newsItem }) {
   );
 
   return (
-    <div className="news-card">
+    <div className="news-card" onClick={() => onClick(newsItem.id)}>
       <div>
         <img
           src={newsItem.fields.thumbnail}
           alt={newsItem.webTitle}
           className="news-image"
         />
-        <h2 className="news-title">
-          <a href={newsItem.webUrl} target="_blank" rel="noopener noreferrer">
-            {newsItem.webTitle}
-          </a>
+        <h2 className="news-title" onClick={() => onClick(newsItem.id)}>
+          {newsItem.webTitle}
         </h2>
         <p className="news-text">{newsItem.fields.trailText}</p>
       </div>

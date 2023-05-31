@@ -4,6 +4,7 @@ import NewsCard from "./NewsCard";
 import { FiChevronRight, FiChevronLeft } from "react-icons/fi";
 import "./App.css";
 import Header from "./Header";
+import Article from "./Article";
 
 const TOTAL_PAGES = 10; // define your total pages
 const API_KEY = import.meta.env.VITE_GUARDIAN_API_KEY;
@@ -13,10 +14,15 @@ function App() {
   const [newsData, setNewsData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [error, setError] = useState(null);
+  const [selectedNewsId, setSelectedNewsId] = useState(null);
 
   // Function to format the date
   const formatDate = (date) => {
     return date.toISOString().split("T")[0];
+  };
+
+  const clearSelectedNewsId = () => {
+    setSelectedNewsId(null);
   };
 
   useEffect(() => {
@@ -72,41 +78,51 @@ function App() {
   return (
     <div className="container">
       <Header />
-      {Object.entries(newsData).map(([date, newsItems]) => (
-        <div key={date} className="day-news grid grid-cols-news">
-          <div className="date-container">
-            <p className="date-title">
-              {new Date(date).toLocaleDateString("en-US", {
-                weekday: "long",
-                day: "2-digit",
-                month: "long",
-                year: "numeric",
-              })}
-            </p>
+      {selectedNewsId ? (
+        <Article id={selectedNewsId} onBack={clearSelectedNewsId} />
+      ) : (
+        Object.entries(newsData).map(([date, newsItems]) => (
+          <div key={date} className="day-news grid grid-cols-news">
+            <div className="date-container">
+              <p className="date-title">
+                {new Date(date).toLocaleDateString("en-US", {
+                  weekday: "long",
+                  day: "2-digit",
+                  month: "long",
+                  year: "numeric",
+                })}
+              </p>
+            </div>
+            <div className="news-grid">
+              {newsItems.map((newsItem) => (
+                <NewsCard
+                  key={newsItem.id}
+                  newsItem={newsItem}
+                  onClick={setSelectedNewsId}
+                />
+              ))}
+            </div>
           </div>
-          <div className="news-grid">
-            {newsItems.map((newsItem) => (
-              <NewsCard key={newsItem.id} newsItem={newsItem} />
-            ))}
-          </div>
+        ))
+      )}
+      {!selectedNewsId && ( // only show pagination when no article is selected
+        <div className="page-controls">
+          <button
+            onClick={() => goToPage(currentPage - 1)}
+            disabled={currentPage === 1}
+          >
+            <FiChevronLeft />
+          </button>
+          {generatePageNumbers()}
+          {currentPage < TOTAL_PAGES && <p>...</p>}
+          <button
+            onClick={() => goToPage(currentPage + 1)}
+            disabled={currentPage === TOTAL_PAGES}
+          >
+            <FiChevronRight />
+          </button>
         </div>
-      ))}
-      <div className="page-controls">
-        <button
-          onClick={() => goToPage(currentPage - 1)}
-          disabled={currentPage === 1}
-        >
-          <FiChevronLeft />
-        </button>
-        {generatePageNumbers()}
-        {currentPage < TOTAL_PAGES && <p>...</p>}
-        <button
-          onClick={() => goToPage(currentPage + 1)}
-          disabled={currentPage === TOTAL_PAGES}
-        >
-          <FiChevronRight />
-        </button>
-      </div>
+      )}
     </div>
   );
 }
