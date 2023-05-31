@@ -1,0 +1,58 @@
+.article-container {
+  margin: 2rem auto;
+  padding: 1rem;
+  max-width: 800px;
+  background-color: white;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  color: #333;
+}
+
+.article-container button {
+  border: none;
+  background-color: #b71c1c;
+  color: #ffc107;
+  padding: 0.5rem 1rem;
+  margin-bottom: 1rem;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+}
+
+.article-container button svg {
+  margin-right: 0.5rem;
+}
+
+.article-container h2 {
+  margin-bottom: 1rem;
+  color: #b71c1c;
+  font-size: 2rem;
+  text-transform: uppercase;
+}
+
+.article-container img {
+  max-width: 100%;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.article-container p {
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.article-container .author-info {
+  font-style: italic;
+  color: #666;
+}
+
+.article-container .publish-info {
+  font-size: 0.85rem;
+  color: #888;
+  margin-bottom: 2rem;
+}
+
+.article-container .body-text {
+  line-height: 1.6;
+}
