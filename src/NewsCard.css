@@ -4,9 +4,7 @@
   flex-direction: column;
   justify-content: space-between;
   margin: 0.9rem; /* Set a margin around each card to create the 'lines' */
-  /* background-color: white; */
   position: relative;
-  /* border-right: 1px solid black; */
   margin-left: 1rem;
   margin-right: -2rem;
   transition: background 0.3s ease;
@@ -17,6 +15,7 @@
 .news-card:hover {
   background: linear-gradient(to right, #fcebbe, #f8edd1);
   color: #333;
+  cursor: pointer;
 }
 
 .news-card::after {
