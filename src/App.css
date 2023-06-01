@@ -16,12 +16,12 @@
 }
 
 .date-container {
-  min-width: 220px;
+  min-width: 190px;
   padding: 1rem;
 }
 
 .date-title {
-  font-size: 2rem;
+  font-size: 1.8rem;
   font-weight: 700;
   color: #333;
 }
